@@ -18,11 +18,13 @@ function formatUserData(input) {
     if(!input || /^\s+$/g.test(input) || typeof input !== 'string')
         throw new Error("Invalid input: Name must be a non-empty string");
 
-    const parsedInput = input.trim().toLowerCase();
+    const words = input.toLowerCase().split(/\s+/);
+    
     return {
-        fullName: parsedInput.split(' ').map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(' '),
-        username: parsedInput.charAt(0) + parsedInput.split(' ').map(item => item.charAt(0).toLowerCase() + item.slice(1))[1]
+        fullName: words.map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(' '),
+        username: words[0].charAt(0) + (words[2] || words[1] || '')
     };
 }
+
 
 module.exports = formatUserData;
